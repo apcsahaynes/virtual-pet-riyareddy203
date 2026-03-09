@@ -1,5 +1,7 @@
 VirtualPet myPet;
 
+PImage img;
+
 Button feedButton;
 Button playButton;
 
@@ -16,8 +18,8 @@ final int MESSAGE_DURATION = 2000; // milliseconds to show the message
 void setup() {
   size(600, 500);
   textFont(createFont("Arial", 16, true));
-
-  myPet = new VirtualPet4("Coco");
+  img = loadImage ("caz.png");
+  myPet = new VirtualPet("Cazzy");
 
   // Buttons sit along the bottom of the screen
   // Button(label, x, y, width, height)
@@ -40,17 +42,23 @@ void draw() {
   feedButton.display();
   playButton.display();
   drawMessage();
+  image (img, 90, 70);
 }
 
 void mousePressed() {
   if (feedButton.isClicked(mouseX, mouseY)) {
-    Food f = new Food("Watermelon", 3, 2, 2);
+    Food f;
+    if (Math.random() > 0.5) {
+      f = new Food("Ramen", 3, 2, 2);
+    } else {
+      f = new Food("Pretzels", 3, 2, 2);
+    }
     myPet.feed(f);
     showMessage(f.getName() + " eaten!");
   }
 
   if (playButton.isClicked(mouseX, mouseY)) {
-    Game g = new Game("Coin Toss", 2, 1);
+    Game g = new Game("Space Invaders", 2, 1);
     myPet.play(g);
     showMessage(g.getName() + " played!");
   }
